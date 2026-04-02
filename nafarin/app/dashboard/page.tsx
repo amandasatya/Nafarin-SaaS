@@ -64,7 +64,7 @@ const Sidebar: FC = () => (
       <div className="bg-[#1C75FF] p-2 rounded-xl">
         <MdInventory2 size={24} className="transform rotate-[-20deg]" />
       </div>
-      Grocer<span className="text-[#1C75FF]">IQ</span>
+      Nafarin<span className="text-[#1C75FF]">POS</span>
     </div>
     <nav className="grow">
       <ul className="space-y-3">
@@ -185,7 +185,7 @@ const InventoryAlertsTable: FC = () => (
       </button>
     </div>
     <div className="w-full">
-      <div className="grid grid-cols-[50px,1fr,200px,200px,150px] items-center gap-4 py-4 border-b text-sm font-medium text-gray-500">
+      <div className="flex items-center justify-between gap-4 py-4 border-b text-sm font-medium text-gray-500">
         <div>Prl.</div>
         <div>Name</div>
         <div>Duration</div>
@@ -195,15 +195,15 @@ const InventoryAlertsTable: FC = () => (
       {inventoryAlerts.map((row, index) => (
         <div
           key={row.pri}
-          className="grid grid-cols-[50px,1fr,200px,200px,150px] items-center gap-4 py-5 border-b last:border-0 text-sm text-gray-800"
+          className="flex items-center justify-between gap-4 py-5 border-b last:border-0 text-sm text-gray-800"
         >
           <div className="flex items-center justify-center">
-            <span className="w-8 h-8 rounded-full bg-red-500 text-white font-semibold flex items-center justify-center">
+            <span className="w-8 h-8 rounded-full bg-red-500 text-white font-semibold flex items-center justify-center text-center">
               {row.pri}
             </span>
           </div>
-          <div className="font-medium">{row.name}</div>
-          <div>{row.duration}</div>
+          <div className="font-medium flex justify-center items-start">{row.name}</div>
+          <div className='flex justify-center items-start'>{row.duration}</div>
           <div>{row.alerts}</div>
           <div>
             <AlertStatusBadge status={row.status} />
