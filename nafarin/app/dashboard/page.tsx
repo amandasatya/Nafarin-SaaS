@@ -45,49 +45,99 @@ const inventoryAlerts = [
   { pri: 4, name: 'Phala Powets', duration: 'Rs 20.00', alerts: '14 months', status: 'Prioritized' },
 ];
 
+// --- Modify the menuItems array to include the new children ---
 const menuItems = [
   { name: 'Dashboard', icon: MdDashboard, active: true },
   { name: 'Analysis', icon: MdInsertChartOutlined },
   { name: 'Inventory', icon: MdInventory2 },
-  { name: 'Investments', icon: MdMonetizationOn, submenu: true },
-  { name: 'Database Alerts', icon: MdAddAlert },
-  { name: 'Events', icon: MdEventNote },
+  {
+    name: 'Cashflow',
+    icon: MdMonetizationOn,
+    submenu: true, // Keep this as a flag for the logic below
+    // Add these sub-items:
+    children: [
+      { name: 'Today’s Transactions', href: '#' },
+      { name: 'Incoming/Outgoing', href: '#' },
+      { name: 'AI Forecast', href: '#' },
+    ],
+  },
+  { name: 'Inventory Alerts', icon: MdAddAlert },
+  { name: 'AI Insight', icon: MdEventNote },
   { name: 'Discount', icon: MdOutlineLocalOffer },
   { name: 'Settings', icon: MdSettings },
 ];
 
-// --- Sub-Components ---
+const Sidebar: FC = () => {
+  // 1. We create a local state variable just to manage the open/close state of Cashflow.
+  // We use the exact 'name' property from the menuItems array to reference it.
+  const [isCashflowSubmenuOpen, setIsCashflowSubmenuOpen] = React.useState(false);
 
-const Sidebar: FC = () => (
-  <div className="w-64 bg-[#0A1A3C] p-6 flex flex-col h-full rounded-l-lg">
-    <div className="flex items-center gap-2 mb-10 text-white font-bold text-2xl">
-      <div className="bg-[#1C75FF] p-2 rounded-xl">
-        <MdInventory2 size={24} className="transform rotate-[-20deg]" />
+  return (
+    <div className="w-64 bg-[#0A1A3C] p-6 flex flex-col h-full rounded-l-lg">
+      <div className="flex items-center gap-2 mb-10 text-white font-bold text-2xl">
+        <div className="bg-[#1C75FF] p-2 rounded-xl">
+          <MdInventory2 size={24} className="transform rotate-[-20deg]" />
+        </div>
+        Nafarin<span className="text-[#1C75FF]">POS</span>
       </div>
-      Nafarin<span className="text-[#1C75FF]">POS</span>
+      <nav className="grow">
+        <ul className="space-y-3">
+          {menuItems.map((item) => (
+            <li key={item.name}>
+              {/* If it HAS a submenu (like Cashflow), we handle clicks in local state. */}
+              {item.submenu ? (
+                <div>
+                  <button
+                    onClick={() => setIsCashflowSubmenuOpen(!isCashflowSubmenuOpen)}
+                    className="flex w-full items-center gap-4 px-4 py-3 rounded-lg text-sm transition text-gray-400 hover:text-white"
+                  >
+                    <item.icon size={20} />
+                    {item.name}
+                    {/* Add conditional styling to rotate the arrow based on state */}
+                    <MdKeyboardArrowDown
+                      className={`ml-auto transition-transform ${
+                        isCashflowSubmenuOpen ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </button>
+
+                  {/* 2. The Submenu itself. We use Tailwind classes to create indents and styling. */}
+                  {isCashflowSubmenuOpen && (
+                    <ul className="mt-2 pl-12 space-y-2 border-l border-white/10 ml-4">
+                      {item.children?.map((child) => (
+                        <li key={child.name}>
+                          <a
+                            href={child.href}
+                            className="block text-xs text-gray-500 hover:text-[#1C75FF]"
+                          >
+                            {child.name}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ) : (
+                /* If it's a regular link (NO submenu), we use the existing structure. */
+                <a
+                  href="#"
+                  className={`flex items-center gap-4 px-4 py-3 rounded-lg text-sm transition ${
+                    item.active
+                      ? 'bg-[#142A57] text-[#1C75FF] font-medium'
+                      : 'text-gray-400 hover:text-white'
+                  }`}
+                >
+                  <item.icon size={20} />
+                  {item.name}
+                </a>
+              )}
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
-    <nav className="grow">
-      <ul className="space-y-3">
-        {menuItems.map((item) => (
-          <li key={item.name}>
-            <a
-              href="#"
-              className={`flex items-center gap-4 px-4 py-3 rounded-lg text-sm transition ${
-                item.active
-                  ? 'bg-[#142A57] text-[#1C75FF] font-medium'
-                  : 'text-gray-400 hover:text-white'
-              }`}
-            >
-              <item.icon size={20} />
-              {item.name}
-              {item.submenu && <MdKeyboardArrowDown className="ml-auto" />}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  </div>
-);
+  );
+};
 
 const Header: FC = () => (
   <header className="flex items-center justify-between px-8 py-6 bg-white rounded-tr-lg">
