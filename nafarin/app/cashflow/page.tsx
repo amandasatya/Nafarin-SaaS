@@ -28,41 +28,7 @@ const salesBreakdown = [
 ];
 
 // --- Sidebar Component ---
-const Sidebar: FC = () => (
-  <div className="w-64 bg-[#0A1A3C] p-6 flex flex-col h-full rounded-l-lg">
-    <div className="flex items-center gap-2 mb-10 text-white font-bold text-2xl">
-      <div className="bg-[#1C75FF] p-2 rounded-xl">
-        <MdInventory2 size={24} className="transform rotate-[-20deg]" />
-      </div>
-      Grocer<span className="text-[#1C75FF]">IQ</span>
-    </div>
-    <nav className="grow">
-      <ul className="space-y-3">
-        {[
-          { name: 'Dashboard', icon: MdDashboard },
-          { name: 'Sales', icon: MdPointOfSale },
-          { name: 'Inventory', icon: MdInventory2 },
-          { name: 'Cashflow', icon: MdMonetizationOn, active: true },
-          { name: 'AI Insights', icon: MdEventNote },
-        ].map((item) => (
-          <li key={item.name}>
-            <a href="#" className={`flex items-center gap-4 px-4 py-3 rounded-lg text-sm transition ${
-              item.active ? 'bg-[#142A57] text-[#1C75FF] font-medium border-l-4 border-[#1C75FF]' : 'text-gray-400 hover:text-white'
-            }`}>
-              <item.icon size={20} />
-              {item.name}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-    <div className="mt-auto pt-6 border-t border-white/10">
-      <a href="#" className="flex items-center gap-4 px-4 py-3 text-gray-400 hover:text-white text-sm">
-        <MdSettings size={20} /> Settings
-      </a>
-    </div>
-  </div>
-);
+
 
 // --- Cashflow Summary Card ---
 const CashflowSummary: FC = () => (
@@ -114,7 +80,7 @@ const CashflowDashboard: FC = () => {
   return (
     <div className="min-h-screen bg-[#F3F6FA] p-6 lg:p-12 flex items-center justify-center font-sans">
       <div className="w-full max-w-[1600px] h-[900px] bg-white flex shadow-2xl rounded-lg overflow-hidden">
-        <Sidebar />
+        {/* <Sidebar /> */}
         
         <div className="flex-1 flex flex-col bg-[#F3F6FA]">
           {/* Header */}

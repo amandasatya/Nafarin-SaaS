@@ -67,77 +67,7 @@ const menuItems = [
   { name: 'Settings', icon: MdSettings },
 ];
 
-const Sidebar: FC = () => {
-  // 1. We create a local state variable just to manage the open/close state of Cashflow.
-  // We use the exact 'name' property from the menuItems array to reference it.
-  const [isCashflowSubmenuOpen, setIsCashflowSubmenuOpen] = React.useState(false);
 
-  return (
-    <div className="w-64 bg-[#0A1A3C] p-6 flex flex-col h-full rounded-l-lg">
-      <div className="flex items-center gap-2 mb-10 text-white font-bold text-2xl">
-        <div className="bg-[#1C75FF] p-2 rounded-xl">
-          <MdInventory2 size={24} className="transform rotate-[-20deg]" />
-        </div>
-        Nafarin<span className="text-[#1C75FF]">POS</span>
-      </div>
-      <nav className="grow">
-        <ul className="space-y-3">
-          {menuItems.map((item) => (
-            <li key={item.name}>
-              {/* If it HAS a submenu (like Cashflow), we handle clicks in local state. */}
-              {item.submenu ? (
-                <div>
-                  <button
-                    onClick={() => setIsCashflowSubmenuOpen(!isCashflowSubmenuOpen)}
-                    className="flex w-full items-center gap-4 px-4 py-3 rounded-lg text-sm transition text-gray-400 hover:text-white"
-                  >
-                    <item.icon size={20} />
-                    {item.name}
-                    {/* Add conditional styling to rotate the arrow based on state */}
-                    <MdKeyboardArrowDown
-                      className={`ml-auto transition-transform ${
-                        isCashflowSubmenuOpen ? 'rotate-180' : ''
-                      }`}
-                    />
-                  </button>
-
-                  {/* 2. The Submenu itself. We use Tailwind classes to create indents and styling. */}
-                  {isCashflowSubmenuOpen && (
-                    <ul className="mt-2 pl-12 space-y-2 border-l border-white/10 ml-4">
-                      {item.children?.map((child) => (
-                        <li key={child.name}>
-                          <a
-                            href={child.href}
-                            className="block text-xs text-gray-500 hover:text-[#1C75FF]"
-                          >
-                            {child.name}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              ) : (
-                /* If it's a regular link (NO submenu), we use the existing structure. */
-                <a
-                  href="#"
-                  className={`flex items-center gap-4 px-4 py-3 rounded-lg text-sm transition ${
-                    item.active
-                      ? 'bg-[#142A57] text-[#1C75FF] font-medium'
-                      : 'text-gray-400 hover:text-white'
-                  }`}
-                >
-                  <item.icon size={20} />
-                  {item.name}
-                </a>
-              )}
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </div>
-  );
-};
 
 const Header: FC = () => (
   <header className="flex items-center justify-between px-8 py-6 bg-white rounded-tr-lg">
@@ -270,7 +200,7 @@ const GrocerIQDashboard: FC = () => {
   return (
     <div className="min-h-screen bg-[#F3F6FA] p-6 lg:p-12 flex items-center justify-center font-sans">
       <div className="w-full max-w-400 h-225 bg-white flex shadow-2xl rounded-lg overflow-hidden">
-        <Sidebar />
+        {/* <Sidebar /> */}
         <div className="flex-1 flex flex-col bg-[#F3F6FA]">
           <Header />
           <main className="grow p-8 lg:p-12 space-y-10 overflow-y-auto">
