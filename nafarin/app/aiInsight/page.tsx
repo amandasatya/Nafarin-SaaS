@@ -34,7 +34,7 @@ const wasteData = [
 // --- Sidebar Component ---
 
 
-// --- AI Insights Main Component --
+// --- AI Insights Main Component ---
 const AIInsights: FC = () => {
   return (
     <div className="min-h-screen bg-[#F3F6FA] p-6 lg:p-12 flex items-center justify-center font-sans">
